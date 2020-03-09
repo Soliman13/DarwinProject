@@ -5,8 +5,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="520" Width="800">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Map">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Canvas MouseDown="AddCity"
+                        Grid.Column="0"
+                        Name="canvasMap">
+                        <Image
+                            Grid.Row="3"
+                            Name="map"
+                            Source="https://lh3.googleusercontent.com/proxy/aopTSPjdqphwMmQeEqhofAkxIW0nAxEuSc4Cx_tVfbARMGI5xatQXf1fXPAY8HspjVHo5V-FaxfL6jLdNMGFYTm_ox8FowyfCadrgIe1-3C9"
+                            >
+                        </Image>
+                    </Canvas>
+                    <ScrollViewer Grid.Column="1">
+                        <ListView Name="listCities" SelectionChanged="RemoveCity">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <TextBlock Text="{Binding Name}" FontWeight="Medium" />
+                                        <TextBlock Text=" : " />
+                                        <TextBlock Text="(x: " />
+                                        <TextBlock Text="{Binding X}" FontWeight="Bold" />
+                                        <TextBlock Text="), (" />
+                                        <TextBlock Text="y: " />
+                                        <TextBlock Text="{Binding Y}" FontWeight="Bold" />
+                                        <TextBlock Text=")" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Params">
+                <StackPanel>
+                    <Label>Number of roads per generation :</Label>
+                    <TextBox Text="{Binding NbRoadsPerGeneration}"></TextBox>
+                    <Label>Number of XOver :</Label>
+                    <TextBox Text="{Binding NbXovers}"></TextBox>
+                    <Label>Number of Mutations :</Label>
+                    <TextBox Text="{Binding NbMutations}"></TextBox>
+                    <Label >Number of Elites :</Label>
+                    <TextBox Text="{Binding NbElites}"></TextBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Run">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="9*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <Button Name="RunBtn" Click="Run">Run</Button>
+                    </StackPanel>
+                    <ScrollViewer Grid.Row="1">
+                        <TextBlock Name="console" />
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
